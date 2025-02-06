@@ -54,7 +54,7 @@
             user-select: none;
             margin: 2px;
             position: relative;
-            background-color: rgb(141, 141, 141);
+            background-color: rgb(150, 150, 150);
             border-radius: 10px;
         }
         .mainTable
@@ -100,7 +100,7 @@
             width: 75px;
             height: 75px;
             align-items: center;
-            background-color: rgb(139, 139, 139);
+            background-color: rgb(150, 150, 150);
             border-radius: 10px;
             border: none;
             margin: 20px;
@@ -137,13 +137,13 @@
                   {
                     tables[i].style.backgroundColor = "rgb(100, 100, 100)";
                   }
-                  document.querySelector(`table[data-sub="${dataSub}"]`).style.backgroundColor = "rgb(140, 140, 140)";
+                  document.querySelector(`table[data-sub="${dataSub}"]`).style.backgroundColor = "rgb(150, 150, 150)";
                 }
                 else
                 {
                   for(let i = 0; i < 9; i++)
                   {
-                    tables[i].style.backgroundColor = "rgb(140, 140, 140)";
+                    tables[i].style.backgroundColor = "rgb(150, 150, 150)";
                   }
                 } 
 
@@ -213,7 +213,7 @@
 
             let tables = document.getElementById("mainTable").querySelectorAll("table");
             tables.forEach(table => {
-                table.style.backgroundColor = "rgb(141, 141, 141)";
+                table.style.backgroundColor = "rgb(150, 150, 150)";
               buttons = table.querySelectorAll("div");
               buttons.forEach(button => {
                 button.innerText = "";
