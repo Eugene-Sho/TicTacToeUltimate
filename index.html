@@ -22,7 +22,9 @@
             overflow: hidden;
             text-align: center;
             color: white;
+            line-height: 28px;
             position: relative;
+            user-select: none;
             overflow-x: hidden;
             overflow-y: hidden;
             touch-action: none;
@@ -86,12 +88,17 @@
             color: white;
             text-decoration: none;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
             text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
         }
         .btn:hover {
             background: rgba(255, 255, 255, 0.4);
-            transform: scale(1.1) rotate(-2deg);
             box-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
         }
         .btn:active {
@@ -101,9 +108,9 @@
 </head>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-        window.Telegram.WebApp.setHeaderColor("#000000");
-        window.Telegram.WebApp.isClosingConfirmationEnabled = true;
-        window.Telegram.WebApp.isVerticalSwipesEnabled = false;
+    window.Telegram.WebApp.setHeaderColor("#000000");
+    window.Telegram.WebApp.isClosingConfirmationEnabled = true;
+    window.Telegram.WebApp.isVerticalSwipesEnabled = false;
 </script>
 <body>
     <div class="gradient-bg"></div>
@@ -115,10 +122,10 @@
         Your browser does not support the audio element.
     </audio>
     <script>
-        document.addEventListener("click", () => {
-            const audio = document.getElementById("bg-music");
-            audio.volume = 0.1;
-            audio.play().catch(error => console.log("Автовоспроизведение заблокировано:", error));
+        document.addEventListener("click", function(event) {
+                const audio = document.getElementById("bg-music");
+                audio.volume = 0.1;
+                audio.play().catch(error => console.log("Автовоспроизведение заблокировано:", error));
         });
     </script>
 </body>
