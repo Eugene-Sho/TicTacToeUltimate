@@ -19,7 +19,6 @@
             overflow-y: hidden;
             touch-action: none;
             background-color: white;
-            display: grid;
         }
         .mainTable > tbody > tr > td > table > tbody > tr > td
         {
@@ -115,6 +114,10 @@
         .restartBtn:active
         {
             background-color: rgb(107, 107, 107);
+        }
+        .container
+        {
+            display: grid;
         }
     </style>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -485,6 +488,7 @@
           </td>
         </tr>
     </table>
-    <button class="restartBtn" id="restartBtn" onclick="start()"><img src="img/restart.png" style="height: 100%; width: 100%;"></button>
+    <div class="container">
+    <button class="restartBtn" id="restartBtn" onclick="start()"><img src="img/restart.png" style="height: 100%; width: 100%;"></button></div>
 </body>
 </html>
