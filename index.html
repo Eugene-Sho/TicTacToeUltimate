@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <title>Game Menu</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
@@ -92,6 +92,10 @@
             position: relative;
             overflow: hidden;
             animation: pulse 2s infinite;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
         @keyframes pulse {
             0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
