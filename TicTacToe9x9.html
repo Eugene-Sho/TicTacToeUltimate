@@ -37,12 +37,13 @@
             width: 100%;
             cursor: pointer;
             user-select: none;
-            border-radius: 10px;
+            border-radius: 8px;
             border: none;
             color: black;
             background-color: white;
             text-align: center;
             font-size: 100%;
+            padding-top: 5px;
         }
         button:hover
         {
@@ -67,49 +68,71 @@
             height: auto;
             margin-left: 5%;
             margin-right: 5%;
+            
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+            50% { transform: scale(1.02); box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
         }
         .mainTable > tbody > tr > td > div
         {
             position: absolute;
-            width: 29%;
-            height: 90px;
+            width: 26%;
+            height: 94px;
             z-index: 10;
             background-color: rgba(175, 175, 175, 0.5);
             display: none;
-            color: black;
             text-align: center;
             font-size: 90px;
             border-radius: 10px;
+            padding-top: 10px;
+            padding-left: 9px;
+        }
+        .elements
+        {
+            display: flex;
+            width: 90%;
+            height: 55px;
+            justify-content: center;
         }
         .elements div
         {
           height: 50px;
-          width: 33%;
-          text-align: center;
+          
           font-size: 35px;
           color: black;
           padding: 5px;
           letter-spacing: -2px;
         }
-        .elements
+        .timerX
         {
-            display: flex;
-            width: 100%;
-            justify-content: center;
+            text-align: right;
+            width: 35%;
+        }
+        .timerO
+        {
+            text-align: left;
+            width: 35%;
+        }
+        .turn
+        {
+            text-align: center;
+            width: 30%;
         }
         .restartBtn
         {
             height: 50px;
             align-items: center;
             font-family: 'Press Start 2P', cursive;
-            background-color: rgb(150, 150, 150);
+            background: #414141;
             border-radius: 30px;
             border: 2px solid white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            color: black;
+            box-shadow: 0 0px 30px rgba(255, 255, 255, 0.4);
+            color: white;
             font-weight: bold;
             margin-top: 20px;
             cursor: pointer;
+            animation: pulse 2s infinite;
         }
         .restartBtn:active
         {
@@ -147,7 +170,7 @@
                 if(dataSub != "")document.querySelector(`table[data-sub="${dataSub}"]`).style.backgroundColor = "unset";
 
                 event.target.style.color = isZero ? "blue" : "red";
-                event.target.innerText = isZero ? (isZero = false, document.getElementById("turn").style.color = "red", document.getElementById("turn").innerText = "X", "O") : (isZero = true, document.getElementById("turn").style.color = "blue", document.getElementById("turn").innerText = "O", "X");
+                event.target.innerText = isZero ? (isZero = false, document.getElementById("turn").style.color = "red", document.getElementById("turn").style.textShadow = "0 0 8px rgba(256, 0, 0, 0.5), 0 0 15px rgba(256, 0, 0, 0.5)", document.getElementById("turn").innerText = "X", "O") : (isZero = true, document.getElementById("turn").style.color = "blue", document.getElementById("turn").style.textShadow = "0 0 8px rgba(0, 0, 256, 0.5), 0 0 15px rgba(0, 0, 256, 0.5)", document.getElementById("turn").innerText = "O", "X");
                 checkWinner(event.target.getAttribute("data-main"));
                 dataSub = document.getElementById(event.target.getAttribute("data-sub")).style.display === "unset" ? "" : event.target.getAttribute("data-sub");
                 
@@ -254,7 +277,6 @@
         }
         function winner(winner, table, isEnd)
         {
-            console.log("asdsad");
             if(table != "")
             {
                 document.getElementById(table).style.color = winner == "O" ? "blue" : "red";
@@ -301,20 +323,29 @@
             audio.volume = 0.2;
             audio.play().catch(error => console.log("Автовоспроизведение заблокировано:", error));
         });
+        document.addEventListener("DOMContentLoaded", () => {
+            for(let a = 0; a <= 2; a++)
+            {
+                for(let b = 0; b <= 2; b++)
+                {
+                    document.getElementById(a + "-" + b).style.width = (document.querySelector("table[data-sub='" + a + "-" + b + "']").offsetWidth - 10) + "px";
+                } 
+            }
+        });
     </script>
 </head>
 <body>
 <div class="container">
   <div class="elements">
-    <div class="timerX" id="timerX" style="color: red;">5:00</div>
-    <div id="turn" class="turn" style="color: red;">X</div>
-    <div class="timerO" id="timerO" style="color: blue;">5:00</div>
+    <div class="timerX" id="timerX" style="color: red; text-shadow: 0 0 8px rgba(256, 0, 0, 0.5), 0 0 15px rgba(256, 0, 0, 0.5);">5:00</div>
+    <div id="turn" class="turn" style="color: red; text-shadow: 0 0 8px rgba(256, 0, 0, 0.5), 0 0 15px rgba(256, 0, 0, 0.5);">X</div>
+    <div class="timerO" id="timerO" style="color: blue; text-shadow: 0 0 8px rgba(0, 0, 256, 0.5), 0 0 15px rgba(0, 0, 256, 0.5);">5:00</div>
   </div>
   
     <table class="mainTable" id="mainTable">
         <tr>
             <td>
-              <div id="0-0"></div>
+                <div id="0-0"></div>
                 <table data-sub="0-0">
                     <tr>
                         <td><div data-main="0-0" data-sub="0-0"></div></td>
