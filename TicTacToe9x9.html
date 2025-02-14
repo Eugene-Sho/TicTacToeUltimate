@@ -6,21 +6,45 @@
     <title>Tic Tac Toe 9x9</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
+        .gradient-bg {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(45deg, 
+                rgba(255,46,99,0.1), 
+                rgba(8,247,254,0.1), 
+                rgba(9,251,211,0.1), 
+                rgba(254,83,187,0.1));
+            opacity: 0.15;
+            z-index: -1;
+        }
         body
         {
+            font-size: 25px;
             font-family: 'Press Start 2P', cursive;
             height: 100%;
             width: 100%;
-            font-size: 25px;
             margin: 5px;
-            user-select: none;
-            -webkit-user-select: none;
             justify-content: center;
             justify-items: center;
             overflow-x: hidden;
             overflow-y: hidden;
             touch-action: none;
+            user-select: none;
+            -webkit-user-select: none;
             background: #1a1a1a;
+        }
+        .scanline {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 46, 99, 0.3);
+            top: 0;
+            animation: scan 4s linear infinite;
+        }
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
         }
         .mainTable > tbody > tr > td > table > tbody > tr > td
         {
@@ -59,6 +83,10 @@
             border-radius: 10px;
             padding-top: 12px;
             padding-left: 10px;
+        }
+        button:hover
+        {
+          background-color: rgb(177, 177, 177);
         }
         .mainTable table
         {
@@ -120,6 +148,7 @@
         .restartBtn
         {
             height: 50px;
+            width: 140px;
             align-items: center;
             font-family: 'Press Start 2P', cursive;
             background: #414141;
@@ -132,7 +161,7 @@
             cursor: pointer;
             animation: pulse 2s infinite;
         }
-        .restartBtn:active {
+        .restartBtn:active{
             background: rgba(255, 255, 255, 0.4);
             transform: scale(0.9);
             animation: press 2s infinite;
@@ -278,6 +307,7 @@
             document.getElementById("timerX").innerText = "5:00";
             document.getElementById("turn").style.color = "red";
             document.getElementById("turn").innerText = "X";
+            document.getElementById("turn").style.textShadow = "0 0 8px rgba(256, 0, 0, 0.5), 0 0 15px rgba(256, 0, 0, 0.5)";
         }
         function winner(winner, table, isEnd)
         {
@@ -339,6 +369,8 @@
     </script>
 </head>
 <body>
+    <div class="gradient-bg"></div>
+    <div class="scanline"></div>
 <div class="container">
   <div class="elements">
     <div class="timerX" id="timerX" style="color: red; text-shadow: 0 0 8px rgba(256, 0, 0, 0.5), 0 0 15px rgba(256, 0, 0, 0.5);">5:00</div>
