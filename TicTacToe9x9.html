@@ -45,6 +45,20 @@
             font-size: 100%;
             padding-top: 5px;
         }
+        .mainTable > tbody > tr > td > div
+        {
+            position: absolute;
+            width: 26%;
+            height: 92px;
+            z-index: 10;
+            background-color: rgba(175, 175, 175, 0.5);
+            display: none;
+            text-align: center;
+            font-size: 90px;
+            border-radius: 10px;
+            padding-top: 12px;
+            padding-left: 10px;
+        }
         button:hover
         {
           background-color: rgb(177, 177, 177);
@@ -60,7 +74,7 @@
         }
         .mainTable
         {
-            background-color: rgb(58, 58, 58);
+            background-color: rgb(27, 27, 27);
             border-radius: 10px;
             box-shadow: 5px 5px 30px 10px black;
             padding: 4px;
@@ -68,26 +82,13 @@
             height: auto;
             margin-left: 5%;
             margin-right: 5%;
-            
+            animation: pulse 5s infinite;
         }
         @keyframes pulse {
             0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
             50% { transform: scale(1.02); box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
         }
-        .mainTable > tbody > tr > td > div
-        {
-            position: absolute;
-            width: 26%;
-            height: 94px;
-            z-index: 10;
-            background-color: rgba(175, 175, 175, 0.5);
-            display: none;
-            text-align: center;
-            font-size: 90px;
-            border-radius: 10px;
-            padding-top: 10px;
-            padding-left: 9px;
-        }
+        
         .elements
         {
             display: flex;
