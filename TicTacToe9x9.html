@@ -20,7 +20,6 @@
             overflow-y: hidden;
             touch-action: none;
             background: #1a1a1a;
-            letter-spacing: 2px;
         }
         .mainTable > tbody > tr > td > table > tbody > tr > td
         {
@@ -63,9 +62,9 @@
             background-color: rgb(58, 58, 58);
             border-radius: 10px;
             box-shadow: 5px 5px 30px 10px black;
-            width: 90%;
-            height: 100%;
             padding: 4px;
+            width: 90%;
+            height: auto;
             margin-left: 5%;
             margin-right: 5%;
         }
@@ -87,30 +86,31 @@
           height: 50px;
           width: 33%;
           text-align: center;
-          font-size: 40px;
+          font-size: 35px;
           color: black;
           padding: 5px;
-          letter-spacing: -10px;
+          letter-spacing: -2px;
         }
         .elements
         {
             display: flex;
-            width: 90%;
+            width: 100%;
             justify-content: center;
-            margin-left: 5%;
-            margin-right: 5%;
-            letter-spacing: 2px;
         }
         .restartBtn
         {
-            width: 75px;
-            height: 75px;
+            height: 50px;
             align-items: center;
+            font-family: 'Press Start 2P', cursive;
             background-color: rgb(150, 150, 150);
-            border-radius: 10px;
-            border: none;
+            border-radius: 30px;
+            border: 2px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            color: black;
+            font-weight: bold;
             margin-top: 20px;
             cursor: pointer;
+            letter-spacing: 1px;
         }
         .restartBtn:active
         {
@@ -118,8 +118,12 @@
         }
         .container
         {
-            display: grid;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
+            height: 100vh;
+            width: 100%;
         }
     </style>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -301,6 +305,7 @@
     </script>
 </head>
 <body>
+<div class="container">
   <div class="elements">
     <div class="timerX" id="timerX" style="color: red;">5:00</div>
     <div id="turn" class="turn" style="color: red;">X</div>
@@ -495,8 +500,8 @@
           </td>
         </tr>
     </table>
-    <div class="container">
-    <button class="restartBtn" id="restartBtn" onclick="start()"><img src="img/restart.png" style="height: 100%; width: 100%;"></button></div>
+    <button class="restartBtn" id="restartBtn" onclick="start()">RESTART</button>
+</div>
     <audio id="bg-music" loop>
         <source src="audio/music/game.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
