@@ -163,12 +163,7 @@
               if(secondsX == 0 && minutesX == 0) winner("O", "", true);
           }
         }
-        document.addEventListener("click", () => {
-            const audio = document.getElementById("bg-music");
-            audio.volume = 0.2;
-            audio.play().catch(error => console.log("Автовоспроизведение заблокировано:", error));
-        });
-        document.addEventListener("DOMContentLoaded", () => {
+        function onPageLoad() {
             let table = document.getElementById("mainTable");
             let tbody = table.querySelector("tbody");  
             let content = "";
@@ -216,4 +211,5 @@
                     document.getElementById(mT).style.width = (document.querySelector(`table[data-sub='${mT}']`).offsetWidth - 10) + "px";
                 }
             }
-        });
+            document.getElementById("bg-music").volume = 0.1;
+        }
