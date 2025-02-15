@@ -83,11 +83,11 @@
             else if(buttons[0].innerText == "X" && buttons[4].innerText == "X" && buttons[8].innerText == "X") return winner("X", dataMain, true);
             else if(buttons[2].innerText == "O" && buttons[4].innerText == "O" && buttons[6].innerText == "O") return winner("O", dataMain, true);
             else if(buttons[2].innerText == "X" && buttons[4].innerText == "X" && buttons[6].innerText == "X") return winner("X", dataMain, true);
-            /*for(let a = 0; a <= 8; a++) 
+            for(let a = 0; a <= 8; a++) 
             {
-                if(buttons[a].style.display === "none") break;
+                if(buttons[a].style.display == "none") return;
                 else if(a == 8) winner("draw", dataMain, true);
-            }*/
+            }
         }
         function start()
         {
@@ -130,7 +130,7 @@
             }
             if(isEnd)
             {
-              alert(winner == "X" ? "Победил крестик!" : winner == "O" ? "Победил нолик!" : "Ничья!");
+              alert(winner == "X" ? "Победил крестик!" : winner == "O" ? "Победил нолик!" : minutesO > minutesX || (minutesO == minutesX && secondsO > secondsX) ? "Победил нолик по времени!" : minutesX > minutesO || (minutesX == minutesO && secondsX > secondsO) ? "Победил крестик по времени!" : "Ничья!");
               isFinished = true;
               clearInterval(interval);
               interval = null
@@ -212,4 +212,5 @@
                 }
             }
             document.getElementById("bg-music").volume = 0.1;
+            start();
         }
