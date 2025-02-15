@@ -86,7 +86,7 @@
             for(let a = 0; a <= 8; a++) 
             {
                 if(buttons[a].style.display == "none") return;
-                else if(a == 8) winner("draw", dataMain, true);
+                else if(a == 8) winner("draw", "", true);
             }
         }
         function start()
