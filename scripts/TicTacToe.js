@@ -1,0 +1,219 @@
+        var isZero = false;
+        var isFinished = false;
+        var dataSub = "";
+        var [secondsX, minutesX] = [0, 5];
+        var [secondsO, minutesO] = [0, 5];
+        var interval = null;
+
+        document.addEventListener("click", function(event) {
+           if(event.target.tagName === "DIV")
+            {
+                if( isFinished || event.target.innerText != "" || (event.target.getAttribute("data-main") != dataSub && dataSub != "")) return;
+                
+                if(interval === null) interval = setInterval(displayTimer, 1000);
+                if(dataSub != "")document.querySelector(`table[data-sub="${dataSub}"]`).style.backgroundColor = "unset";
+
+                event.target.style.color = isZero ? "blue" : "red";
+                event.target.innerText = isZero ? (isZero = false, document.getElementById("turn").style.color = "red", document.getElementById("turn").style.textShadow = "0 0 8px rgba(256, 0, 0, 0.5), 0 0 15px rgba(256, 0, 0, 0.5)", document.getElementById("turn").innerText = "X", "O") : (isZero = true, document.getElementById("turn").style.color = "blue", document.getElementById("turn").style.textShadow = "0 0 8px rgba(0, 0, 256, 0.5), 0 0 15px rgba(0, 0, 256, 0.5)", document.getElementById("turn").innerText = "O", "X");
+                checkWinner(event.target.getAttribute("data-main"));
+                dataSub = document.getElementById(event.target.getAttribute("data-sub")).style.display === "unset" ? "" : event.target.getAttribute("data-sub");
+                
+                let tables = document.querySelector(".mainTable").querySelectorAll("table");
+                if(dataSub != "")
+                {
+                  for(let i = 0; i < 9; i++)
+                  {
+                    tables[i].style.backgroundColor = "rgb(100, 100, 100)";
+                  }
+                  document.querySelector(`table[data-sub="${dataSub}"]`).style.backgroundColor = "rgb(150, 150, 150)";
+                }
+                else
+                {
+                  for(let i = 0; i < 9; i++)
+                  {
+                    tables[i].style.backgroundColor = "rgb(150, 150, 150)";
+                  }
+                }
+            } 
+        });
+        function checkWinner(dataMain)
+        {
+            let buttons = document.querySelector(`table[data-sub="${dataMain}"]`).querySelectorAll("div");
+
+            let isO = false;
+            for(let a = 0; a <= 6; a += 3)
+            {
+                isO = buttons[a].innerText == "O" ? true : buttons[a].innerText == "X" ? false : null;
+                if(isO && buttons[a+1].innerText == "O" && buttons[a+2].innerText == "O") winner("O", dataMain, false);
+                else if(isO === false && buttons[a+1].innerText == "X" && buttons[a+2].innerText == "X") winner("X", dataMain, false);
+            }
+            for(let a = 0; a <= 2; a++)
+            {
+                isO = buttons[a].innerText == "O" ? true : buttons[a].innerText == "X" ? false : null;
+                if(isO && buttons[a+3].innerText == "O" && buttons[a+6].innerText == "O") winner("O", dataMain, false);
+                else if(isO === false && buttons[a+3].innerText == "X" && buttons[a+6].innerText == "X") winner("X", dataMain, false);
+            }
+            if(buttons[0].innerText == "O" && buttons[4].innerText == "O" && buttons[8].innerText == "O") winner("O", dataMain, false);
+            else if(buttons[0].innerText == "X" && buttons[4].innerText == "X" && buttons[8].innerText == "X") winner("X", dataMain, false);
+            else if(buttons[2].innerText == "O" && buttons[4].innerText == "O" && buttons[6].innerText == "O") winner("O", dataMain, false);
+            else if(buttons[2].innerText == "X" && buttons[4].innerText == "X" && buttons[6].innerText == "X") winner("X", dataMain, false);
+            for(let a = 0; a <= 8; a++) 
+            {
+                if(buttons[a].innerText == "") break;
+                else if(a == 8) winner("draw", dataMain, false);
+            }
+            
+
+            buttons = document.querySelectorAll("#mainTable > tbody > tr > td > div");
+
+            isO = false;
+            for(let a = 0; a <= 6; a += 3)
+            {
+                isO = buttons[a].innerText == "O" ? true : buttons[a].innerText == "X" ? false : null;
+                if(isO && buttons[a+1].innerText == "O" && buttons[a+2].innerText == "O") return winner("O", dataMain, true);
+                else if(isO === false && buttons[a+1].innerText == "X" && buttons[a+2].innerText == "X") return winner("X", dataMain, true);
+            }
+            for(let a = 0; a <= 2; a++)
+            {
+                isO = buttons[a].innerText == "O" ? true : buttons[a].innerText == "X" ? false : null;
+                if(isO && buttons[a+3].innerText == "O" && buttons[a+6].innerText == "O") return winner("O", dataMain, true);
+                else if(isO === false && buttons[a+3].innerText == "X" && buttons[a+6].innerText == "X") return winner("X", dataMain, true);
+            }
+            if(buttons[0].innerText == "O" && buttons[4].innerText == "O" && buttons[8].innerText == "O") return winner("O", dataMain, true);
+            else if(buttons[0].innerText == "X" && buttons[4].innerText == "X" && buttons[8].innerText == "X") return winner("X", dataMain, true);
+            else if(buttons[2].innerText == "O" && buttons[4].innerText == "O" && buttons[6].innerText == "O") return winner("O", dataMain, true);
+            else if(buttons[2].innerText == "X" && buttons[4].innerText == "X" && buttons[6].innerText == "X") return winner("X", dataMain, true);
+            /*for(let a = 0; a <= 8; a++) 
+            {
+                if(buttons[a].style.display === "none") break;
+                else if(a == 8) winner("draw", dataMain, true);
+            }*/
+        }
+        function start()
+        {
+            isFinished = false;
+            isZero = false;
+            dataSub = "";
+
+            let tables = document.getElementById("mainTable").querySelectorAll("table");
+            tables.forEach(table => {
+                table.style.backgroundColor = "rgb(150, 150, 150)";
+              buttons = table.querySelectorAll("div");
+              buttons.forEach(button => {
+                button.innerText = "";
+              });
+            });
+            tables = document.querySelectorAll("#mainTable > tbody > tr > td > div");
+            tables.forEach(table => {
+                table.innerText = "";
+                table.style.display = "none";
+            });
+            
+
+            clearInterval(interval);
+            interval = null;
+            [secondsX, minutesX] = [0, 5];
+            [secondsO, minutesO] = [0, 5];
+            document.getElementById("timerO").innerText = "5:00";
+            document.getElementById("timerX").innerText = "5:00";
+            document.getElementById("turn").style.color = "red";
+            document.getElementById("turn").innerText = "X";
+            document.getElementById("turn").style.textShadow = "0 0 8px rgba(256, 0, 0, 0.5), 0 0 15px rgba(256, 0, 0, 0.5)";
+        }
+        function winner(winner, table, isEnd)
+        {
+            if(table != "")
+            {
+                document.getElementById(table).style.color = winner == "O" ? "blue" : "red";
+                document.getElementById(table).innerText = winner == "draw" ? "" :  winner;
+                document.getElementById(table).style.display = "unset";
+            }
+            if(isEnd)
+            {
+              alert(winner == "X" ? "Победил крестик!" : winner == "O" ? "Победил нолик!" : "Ничья!");
+              isFinished = true;
+              clearInterval(interval);
+              interval = null
+            } 
+        }
+        function displayTimer()
+        {
+          if(isZero)
+          {
+            if(secondsO == 0) 
+            {
+              minutesO--;
+              secondsO += 59;
+            }
+            else secondsO--;
+            if(secondsO < 10) document.getElementById("timerO").innerText = `${minutesO}:0${secondsO}`;
+            else document.getElementById("timerO").innerText = `${minutesO}:${secondsO}`;
+            if(secondsO == 0 && minutesO == 0) winner("X", "", true);
+          }
+          else
+          {
+            if(secondsX == 0) 
+              {
+                minutesX--;
+                secondsX += 59;
+              }
+              else secondsX--;
+              if(secondsX < 10)document.getElementById("timerX").innerText = `${minutesX}:0${secondsX}`;
+              else document.getElementById("timerX").innerText = `${minutesX}:${secondsX}`;
+              if(secondsX == 0 && minutesX == 0) winner("O", "", true);
+          }
+        }
+        document.addEventListener("click", () => {
+            const audio = document.getElementById("bg-music");
+            audio.volume = 0.2;
+            audio.play().catch(error => console.log("Автовоспроизведение заблокировано:", error));
+        });
+        document.addEventListener("DOMContentLoaded", () => {
+            let table = document.getElementById("mainTable");
+            let tbody = table.querySelector("tbody");  
+            let content = "";
+            if (!tbody) {
+                tbody = document.createElement("tbody");
+                table.appendChild(tbody);
+            }
+            for(let a = 0; a <= 2; a++)
+            {
+                content += "<tr>"
+                for(let b = 0; b <= 2; b++)
+                {
+                    let mT = `${a}-${b}`;
+                    content += `
+                    <td>
+                        <div id="${mT}"></div>
+                        <table data-sub="${mT}">
+                            <tr>
+                                <td><div data-main="${mT}" data-sub="0-0"></div></td>
+                                <td><div data-main="${mT}" data-sub="0-1"></div></td>
+                                <td><div data-main="${mT}" data-sub="0-2"></div></td>
+                            </tr>
+                            <tr>
+                                <td><div data-main="${mT}" data-sub="1-0"></div></td>
+                                <td><div data-main="${mT}" data-sub="1-1"></div></td>
+                                <td><div data-main="${mT}" data-sub="1-2"></div></td>
+                            </tr>
+                            <tr>
+                                <td><div data-main="${mT}" data-sub="2-0"></div></td>
+                                <td><div data-main="${mT}" data-sub="2-1"></div></td>
+                                <td><div data-main="${mT}" data-sub="2-2"></div></td>
+                            </tr>
+                        </table>
+                    </td>`;
+                } 
+                content += "</tr>";
+            }
+            tbody.innerHTML += content;
+
+            for(let a = 0; a <= 2; a++)
+            {
+                for(let b = 0; b <= 2; b++)
+                {
+                    let mT = `${a}-${b}`;
+                    document.getElementById(mT).style.width = (document.querySelector(`table[data-sub='${mT}']`).offsetWidth - 10) + "px";
+                }
+            }
+        });
