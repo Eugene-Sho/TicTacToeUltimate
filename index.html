@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Game Menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+    function loadPage(page) {
+    fetch(`${page}.html`)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('container').innerHTML = data;
+
+            const oldCss = document.getElementById('page-style');
+            if (oldCss) oldCss.remove();
+
+            const cssLink = document.createElement('link');
+            cssLink.rel = 'stylesheet';
+            cssLink.href = `styles/${page}.css`;
+            cssLink.id = 'page-style';
+            document.head.appendChild(cssLink);
+
+            const oldScript = document.getElementById('page-script');
+            if (oldScript) oldScript.remove();
+
+            const script = document.createElement('script');
+            script.src = `scripts/${page}.js`;
+            script.id = 'page-script';
+            document.body.appendChild(script);
+        })
+        .catch(error => console.error('Ошибка загрузки:', error));
+}
+
+document.addEventListener("DOMContentLoaded", () => loadPage('menu'));
+</script>
+<body>
+    <div class="container" id="container"></div>
+</body>
+</html>
