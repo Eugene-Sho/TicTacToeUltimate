@@ -92,7 +92,7 @@ body
     font-size: 18px;
     font-weight: bold;
     color: white;
-    text-decoration: none;
+    font-family: 'Press Start 2P', cursive;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     text-transform: uppercase;
     position: relative;
@@ -108,7 +108,7 @@ body
     0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
     50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
 }
-.btn:hover {
+.btn:active {
     background: rgba(255, 255, 255, 0.4);
     transform: scale(0.95);
     animation: press 2s infinite;
