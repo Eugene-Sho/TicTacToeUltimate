@@ -57,12 +57,15 @@
             else if(buttons[0].innerText == "X" && buttons[4].innerText == "X" && buttons[8].innerText == "X") winner("X", dataMain, false);
             else if(buttons[2].innerText == "O" && buttons[4].innerText == "O" && buttons[6].innerText == "O") winner("O", dataMain, false);
             else if(buttons[2].innerText == "X" && buttons[4].innerText == "X" && buttons[6].innerText == "X") winner("X", dataMain, false);
+
+            if(document.getElementById(dataMain).style.display != "none")
+            {
             for(let a = 0; a <= 8; a++) 
             {
                 if(buttons[a].innerText == "") break;
                 else if(a == 8) winner("draw", dataMain, false);
             }
-            
+            }
 
             buttons = document.querySelectorAll("#mainTable > tbody > tr > td > div");
 
@@ -83,10 +86,13 @@
             else if(buttons[0].innerText == "X" && buttons[4].innerText == "X" && buttons[8].innerText == "X") return winner("X", dataMain, true);
             else if(buttons[2].innerText == "O" && buttons[4].innerText == "O" && buttons[6].innerText == "O") return winner("O", dataMain, true);
             else if(buttons[2].innerText == "X" && buttons[4].innerText == "X" && buttons[6].innerText == "X") return winner("X", dataMain, true);
+            if(!isFinished)
+            {
             for(let a = 0; a <= 8; a++) 
             {
                 if(buttons[a].style.display == "none") return;
                 else if(a == 8) winner("draw", "", true);
+            }
             }
         }
         function start()
