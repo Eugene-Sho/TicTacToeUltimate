@@ -14,14 +14,13 @@
     tg.isVerticalSwipesEnabled = false;
     tg.expand();
     function loadPage(page) {
-            document.body.style.margin = 0;
-            let font = "'Press Start 2P', cursive";
-            document.body.innerHTML = `<div class='container' id='container'><div style="position: absolute;width: 100vw;height: 100vh;z-index: -1; text-align: center;background: #1b1d1d;font-family:'Press Start 2P', cursive;justify-content: center;display: flex;align-items: center;"><h1 style='color: white;'>Loading...</h1></div></div>`;
-
             const oldCss = document.getElementById('page-style');
             if (oldCss) oldCss.remove();
             const oldScript = document.getElementById('page-script');
             if (oldScript) oldScript.remove();
+
+            document.body.style.margin = 0;
+            document.body.innerHTML = `<div class='container' id='container'><div style="position: absolute;width: 100vw;height: 100vh;z-index: -1; text-align: center;background: #1b1d1d;font-family:'Press Start 2P', cursive;justify-content: center;display: flex;align-items: center;"><h1 style='color: white;'>Loading...</h1></div></div>`;
 
             const cssLink = document.createElement('link');
             cssLink.rel = 'stylesheet';
@@ -35,7 +34,7 @@
 
             script.onload = () => {
                 console.log(`Скрипт ${page}.js загружен`);
-                fetch(`${page}.html`)
+                fetch(`pages/${page}.html`)
                     .then(response => response.text())
                     .then(html => {
                         const parser = new DOMParser();
