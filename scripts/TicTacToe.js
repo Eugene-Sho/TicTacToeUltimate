@@ -6,10 +6,12 @@ var [secondsO, minutesO] = [0, 5];
 var interval = null;
 
 
-function onPageLoad() {
+function onPageLoad() 
+{
     let table = document.getElementById("mainTable");
     let tbody = table.querySelector("tbody");  
     let content = "";
+
     if (!tbody) {
         tbody = document.createElement("tbody");
         table.appendChild(tbody);
@@ -79,7 +81,6 @@ function start()
         table.innerText = "";
         table.style.display = "none";
     });
-    
 
     clearInterval(interval);
     interval = null;
@@ -87,7 +88,6 @@ function start()
     [secondsO, minutesO] = [0, 5];
     document.getElementById("timerO").innerText = "5:00";
     document.getElementById("timerX").innerText = "5:00";
-
     document.getElementById("turn").style.color = "red";
     document.getElementById("turn").innerText = "X";
     document.getElementById("turn").style.textShadow = "0 0 8px rgba(256, 0, 0, 0.5), 0 0 15px rgba(256, 0, 0, 0.5)";
@@ -98,9 +98,7 @@ document.addEventListener("click", function(event) {
     if(event.target.tagName === "DIV")
     {
         if(isFinished || event.target.innerText || (event.target.getAttribute("data-main") != dataSub && dataSub)) return;
-        
         if(interval === null) interval = setInterval(displayTimer, 1000);
-
         if(dataSub)document.querySelector(`table[data-sub="${dataSub}"]`).style.backgroundColor = "unset";
         event.target.style.color = isZero ? "blue" : "red";
 
@@ -151,7 +149,6 @@ function checkWinner(dataMain)
     else if(buttons[0].innerText == "X" && buttons[4].innerText == "X" && buttons[8].innerText == "X") return winner("X", dataMain);
     else if(buttons[2].innerText == "O" && buttons[4].innerText == "O" && buttons[6].innerText == "O") return winner("O", dataMain);
     else if(buttons[2].innerText == "X" && buttons[4].innerText == "X" && buttons[6].innerText == "X") return winner("X", dataMain);
-
     for(let a = 0; a <= 8; a++) 
     {
         if(dataMain ? buttons[a].innerText == "" : buttons[a].style.display == "none") return;
@@ -205,6 +202,7 @@ function winner(winner, table = false)
       interval = null
     } 
 }
+
 
 function add(btn)
 {
