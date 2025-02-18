@@ -54,6 +54,7 @@
                     document.getElementById(mT).style.width = (document.querySelector(`table[data-sub='${mT}']`).offsetWidth - 10) + "px";
                 }
             }
+            document.getElementById("bg-music").querySelector("source").src = "audio/music/game" + Math.floor(Math.random() * 2) + ".mp3";
             document.getElementById("bg-music").volume = 0.1;
             start();
         }
