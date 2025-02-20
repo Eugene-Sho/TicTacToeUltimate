@@ -115,6 +115,9 @@ body
     width: 90%;
     height: 55px;
     justify-content: center;
+    margin-left: 5%;
+    margin-right: 5%;
+    max-width: 700px;
 }
 .elements div
 {
