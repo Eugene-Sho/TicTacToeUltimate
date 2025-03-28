@@ -45,6 +45,7 @@ div#whose-turn {
     padding: 5px;
     text-align: center;
     width: 100%;
+    color: white;
 }
 .buttons {
     width: 100%;
