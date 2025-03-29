@@ -13,6 +13,7 @@
     tg.isClosingConfirmationEnabled = true;
     tg.isVerticalSwipesEnabled = false;
     tg.expand();
+
     function loadPage(page, cancelSearch = false) {
             const oldCss = document.getElementById('page-style');
             if (oldCss) oldCss.remove();
@@ -20,7 +21,7 @@
             if (oldScript) oldScript.remove();
 
             document.body.style.margin = 0;
-            document.body.innerHTML = `<div class='container' id='container'><div style="position: absolute;width: 100vw;height: 100vh;z-index: -1; text-align: center;background: #1b1d1d;font-family:'Press Start 2P', cursive;justify-content: center;display: flex;align-items: center;"><h1 style='color: white;'>Loading...</h1></div></div>`;
+            document.getElementById('container').innerHTML = `<div style="position: absolute;width: 100vw;height: 100vh;z-index: -1; text-align: center;background: #1b1d1d;font-family:'Press Start 2P', cursive;justify-content: center;display: flex;align-items: center;"><h1 style='color: white;'>Loading...</h1></div>`;
 
             const cssLink = document.createElement('link');
             cssLink.rel = 'stylesheet';
@@ -44,15 +45,22 @@
 
                         if (typeof onPageLoad === 'function') onPageLoad();
                         if(cancelSearch) TTTmenu(true);
+                        document.getElementById("bg-music").play().catch(error => console.log("Заблокировано:", error));
                     })
                     .catch(error => console.error('Ошибка загрузки:', error));
             };
             document.body.appendChild(script);
     }
+    document.addEventListener("click", () => {
+        document.getElementById("bg-music").play().catch(error => console.log("Заблокировано:", error));
+    }, { once: true });
 
 document.addEventListener("DOMContentLoaded", () => loadPage('menu'));
 </script>
 <body>
     <div class="container" id="container"><h1>Загрузка...</h1></div>
+    <audio id="bg-music" autoplay loop>
+        <source src="audio/music/menu.mp3" type="audio/mpeg">
+    </audio>
 </body>
 </html>
