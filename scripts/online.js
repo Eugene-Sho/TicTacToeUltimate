@@ -1,9 +1,15 @@
-/*const user = window.Telegram.WebApp.initDataUnsafe?.user;
-if (!user) {
-    alert("Не удалось получить данные Telegram");
-    throw new Error("Нет данных пользователя");
+var userId = window.Telegram.WebApp.initDataUnsafe?.user?.id;
+var firstName = window.Telegram.WebApp.initDataUnsafe?.user?.first_name;
+if (!userId) {
+    console.log("Не удалось получить ID Telegram");
+    userId = Math.floor(100000000 + Math.random() * 900000000);
+    
 }
-*/
+if(!firstName)
+{
+    console.log("Не удалось получить имя Telegram");
+    firstName = "Неизвестный";
+}
 var interval1 = null;
 var interval2 = null;
 var randomNumber = Math.floor(100000000 + Math.random() * 900000000);
@@ -14,8 +20,6 @@ function onPageLoad()
 }
 
 async function findMatch() {
-    const userId = randomNumber;
-    const firstName = "Женя";
     document.getElementById("playBtn").style.display = "none";
     document.getElementById("game-board").innerHTML = "";
     document.getElementById("whose-turn").innerText = "Looking for opponent...";
@@ -39,7 +43,6 @@ async function findMatch() {
 }
 
 async function checkMatchStatus() {
-    const userId = randomNumber;
     interval1 = setInterval(async () => {
         let dots = document.getElementById("whose-turn").innerText.slice(20);
         document.getElementById("whose-turn").innerText = dots.length == 3 ? document.getElementById("whose-turn").innerText.slice(0, -2) : document.getElementById("whose-turn").innerText + ".";
@@ -56,7 +59,6 @@ async function checkMatchStatus() {
 }
 
 function cancelMatchmaking() {
-    const userId = randomNumber;
     fetch(`https://dweller.mooo.com/cancel-match?userId=${userId}`, {
         method: "POST",
         headers: {
@@ -78,7 +80,6 @@ function cancelMatchmaking() {
 
 async function getGameState()
 {
-    const userId = randomNumber;
     interval2 = setInterval(async () => {
         const response = await fetch(`https://dweller.mooo.com/game-state?userId=${userId}`);
         const data = await response.json();
@@ -105,7 +106,6 @@ async function getGameState()
 
 function displayBoard(whoseTurn)
 {
-    const userId = randomNumber;
     document.getElementById("whose-turn").innerText = whoseTurn == userId ? "Your turn" : "Opponents turn";
 
     const boardElement = document.getElementById("game-board");
@@ -133,7 +133,6 @@ function displayBoard(whoseTurn)
 function makeMove(y, x)
 {
     if(interval2 == null) return;
-    const userId = randomNumber;
     fetch(`https://dweller.mooo.com/make-move`, {
         method: "POST",
         headers: {
