@@ -106,6 +106,9 @@ async function getGameState()
 
 function displayBoard(whoseTurn)
 {
+    document.getElementById("bg-music").querySelector("source").src = "audio/music/game" + Math.floor(Math.random() * 2) + ".mp3";
+    document.getElementById("bg-music").load();
+    document.getElementById("bg-music").play();
     document.getElementById("whose-turn").innerText = whoseTurn == userId ? "Your turn" : "Opponents turn";
 
     const boardElement = document.getElementById("game-board");
