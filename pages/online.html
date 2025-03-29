@@ -10,13 +10,13 @@
     <link rel="stylesheet" href="online.css">
 </head>
 <body>
-    <div class="scanline"></div>
-    <div class="gradient-bg"></div>
     <input id="firstName" style="display: none;" type="text" value="Женя">
     <input id="userId" style="display: none;" type="number" value="1234567890">
-    <div id="whose-turn">TicTacToe</div>
+    <div class="scanline"></div>
+    <div class="gradient-bg"></div>
+    <button onpointerdown="add('returnBtn');" onpointerup="rem('returnBtn');" onpointercancel="rem('returnBtn');" onpointerleave="rem('returnBtn');" id="returnBtn" class="returnBtn" onclick="cancelMatchmaking();"><</button>
+    <div id="whose-turn">Looking for opponent...</div>
     <div id="game-board"></div>
     <button id="playBtn" onclick="findMatch();">Play</button>
-    <button id="cancelBtn" style="display: none;" onclick="cancelMatchmaking();">Cancel</button>
 </body>
 </html>
