@@ -33,7 +33,6 @@ async function findMatch() {
     if (!result.found) {
         checkMatchStatus();
     } else {
-        alert("Матч найден");
         document.getElementById("returnBtn").style.display = "none";
         displayBoard(result.whoseTurn);
     }
