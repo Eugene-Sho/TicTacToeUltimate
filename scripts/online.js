@@ -8,9 +8,15 @@ var interval1 = null;
 var interval2 = null;
 const randomNumber = Math.floor(100000000 + Math.random() * 900000000);
 
+function onPageLoad()
+{
+    findMatch();
+}
+
 async function findMatch() {
     const userId = randomNumber;
-    const firstName = document.getElementById("firstName").value;
+    const firstName = "Женя";
+    document.getElementById("playBtn").style.display = "none";
     document.getElementById("game-board").innerHTML = "";
     document.getElementById("whose-turn").innerText = "Looking for opponent...";
     const response = await fetch("https://dweller.mooo.com/find-match", {
@@ -25,17 +31,10 @@ async function findMatch() {
     const result = await response.json();
     console.log(result);
     if (!result.found) {
-        document.getElementById("userId").style.display = "none";
-        document.getElementById("firstName").style.display = "none";
-        document.getElementById("playBtn").style.display = "none";
-        document.getElementById("cancelBtn").style.display = "unset";
         checkMatchStatus();
     } else {
         alert("Матч найден");
-        document.getElementById("userId").style.display = "none";
-        document.getElementById("firstName").style.display = "none";
-        document.getElementById("playBtn").style.display = "none";
-        document.getElementById("cancelBtn").style.display = "none";
+        document.getElementById("returnBtn").style.display = "none";
         displayBoard(result.whoseTurn);
     }
 }
@@ -43,19 +42,39 @@ async function findMatch() {
 async function checkMatchStatus() {
     const userId = randomNumber;
     interval1 = setInterval(async () => {
+        let dots = document.getElementById("whose-turn").innerText.slice(20);
+        document.getElementById("whose-turn").innerText = dots.length == 3 ? document.getElementById("whose-turn").innerText.slice(0, -2) : document.getElementById("whose-turn").innerText + ".";
         const response = await fetch(`https://dweller.mooo.com/match-status?userId=${userId}`);
         const result = await response.json();
         console.log(result);
         if (result.found) {
             clearInterval(interval1);
             interval1 = null;
-            document.getElementById("userId").style.display = "none";
-            document.getElementById("firstName").style.display = "none";
-            document.getElementById("playBtn").style.display = "none";
-            document.getElementById("cancelBtn").style.display = "none";
+            document.getElementById("returnBtn").style.display = "none";
             displayBoard(result.whoseTurn);
         }
     }, 1000);
+}
+
+function cancelMatchmaking() {
+    const userId = randomNumber;
+    fetch(`https://dweller.mooo.com/cancel-match?userId=${userId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(response => {
+        if (response.ok) {
+            console.log("Пользователь удален из списка ожидания");
+        } else {
+            console.error("Ошибка при отмене");
+        }
+    }).catch(error => {
+        console.error("Ошибка в сети: ", error);
+    });
+    clearInterval(interval1);
+    interval1 = null;
+    loadPage("menu", true);
 }
 
 async function getGameState()
@@ -68,6 +87,7 @@ async function getGameState()
         {
             for(let x = 0; x < 3; x++)
             {
+                document.getElementById(`${y}-${x}`).style.color = data.board[y][x] == "X" ? "red" : "blue";
                 document.getElementById(`${y}-${x}`).innerText = data.board[y][x];
             }
         }
@@ -75,6 +95,7 @@ async function getGameState()
         {
             document.getElementById("whose-turn").innerText = data.whoseTurn == userId ? "You lose :(" : "You won!";
             document.getElementById("playBtn").style.display = "unset";
+            document.getElementById("returnBtn").style.display = "unset";
             clearInterval(interval2);
             interval2 = null;
         }
@@ -127,11 +148,13 @@ function makeMove(y, x)
     .then(response => response.json())
     .then(data => {
         document.getElementById("whose-turn").innerText = data.whoseTurn == userId ? "Your turn" : "Opponents turn";
+        document.getElementById(`${y}-${x}`).style.color = data.isX ? "red" : "blue";
         document.getElementById(`${y}-${x}`).innerText = data.isX ? "X" : "O";
         if((data.whoIsWinner == "X" && data.isX) || (data.whoIsWinner == "O" && !data.isX)) 
         {
             document.getElementById("whose-turn").innerText = data.isX ? "You won!" : "You lose :(";
             document.getElementById("playBtn").style.display = "unset";
+            document.getElementById("returnBtn").style.display = "unset";
             clearInterval(interval2);
             interval2 = null;
         }
@@ -139,29 +162,4 @@ function makeMove(y, x)
     .catch(error => {
         console.error("Ошибка", error);
     });
-}
-
-function cancelMatchmaking() {
-    const userId = randomNumber;
-    fetch(`https://dweller.mooo.com/cancel-match?userId=${userId}`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then(response => {
-        if (response.ok) {
-            console.log("Пользователь удален из списка ожидания");
-        } else {
-            console.error("Ошибка при отмене");
-        }
-    }).catch(error => {
-        console.error("Ошибка в сети: ", error);
-    });
-    clearInterval(interval1);
-    interval1 = null;
-    //document.getElementById("userId").style.display = "unset";
-    //document.getElementById("firstName").style.display = "unset";
-    document.getElementById("playBtn").style.display = "unset";
-    document.getElementById("cancelBtn").style.display = "none";
-    document.getElementById("whose-turn").innerText = "TicTacToe";
 }
