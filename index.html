@@ -13,7 +13,7 @@
     tg.isClosingConfirmationEnabled = true;
     tg.isVerticalSwipesEnabled = false;
     tg.expand();
-    function loadPage(page) {
+    function loadPage(page, cancelSearch = false) {
             const oldCss = document.getElementById('page-style');
             if (oldCss) oldCss.remove();
             const oldScript = document.getElementById('page-script');
@@ -43,6 +43,7 @@
                         document.getElementById('container').innerHTML = bodyContent;
 
                         if (typeof onPageLoad === 'function') onPageLoad();
+                        if(cancelSearch) TTTmenu(true);
                     })
                     .catch(error => console.error('Ошибка загрузки:', error));
             };
