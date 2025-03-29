@@ -92,7 +92,8 @@ async function getGameState()
         }
         if(data.whoIsWinner != "") 
         {
-            document.getElementById("whose-turn").innerText = data.whoseTurn == userId ? "You lose :(" : "You won!";
+            if(data.whoIsWinner != "draw") document.getElementById("whose-turn").innerText = data.whoseTurn == userId ? "You lose :(" : "You won :)";
+            else document.getElementById("whose-turn").innerText = "Draw :|";
             document.getElementById("playBtn").style.display = "unset";
             document.getElementById("returnBtn").style.display = "unset";
             clearInterval(interval2);
@@ -149,9 +150,10 @@ function makeMove(y, x)
         document.getElementById("whose-turn").innerText = data.whoseTurn == userId ? "Your turn" : "Opponents turn";
         document.getElementById(`${y}-${x}`).style.color = data.isX ? "red" : "blue";
         document.getElementById(`${y}-${x}`).innerText = data.isX ? "X" : "O";
-        if((data.whoIsWinner == "X" && data.isX) || (data.whoIsWinner == "O" && !data.isX)) 
+        if(data.whoIsWinner != "") 
         {
-            document.getElementById("whose-turn").innerText = data.isX ? "You won!" : "You lose :(";
+            if(data.whoIsWinner != "draw") document.getElementById("whose-turn").innerText = "You won :)";
+            else document.getElementById("whose-turn").innerText = "Draw :|";
             document.getElementById("playBtn").style.display = "unset";
             document.getElementById("returnBtn").style.display = "unset";
             clearInterval(interval2);
